@@ -1,29 +1,38 @@
-﻿using System;
+﻿/* Write a program that finds the sequence of maximal sum in given array. Example:
+ * {2, 3, -6, -1, 2, -1, 6, 4, -8, 8}  {2, -1, 6, 4}
+ * Can you do it with only one loop (with single scan through the elements of the array)?
+ */
 
-class test
+using System;
+using System.Text;
+
+public class MaxSequence
 {
-    static void Main()
+    public static void Main()
     {
-        Console.WriteLine("enter K number: ");
-        int k = int.Parse(Console.ReadLine());  
-        Console.WriteLine("Enter N number: ");
-        int n = int.Parse(Console.ReadLine());  
-        int [] arr = new int[n];
-        for (int i = 0; i < n; i++)
+        int[] myArray = { 2, 3, -6, 36, -7, -1, -2, 4, -8, 8 };
+        int currentSum = 0;
+        int bestSum = 0;
+        StringBuilder bestSequenceBuild = new StringBuilder();
+        string bestSequnce = string.Empty;
+        for (int i = 0; i < myArray.Length; i++)
         {
-            Console.WriteLine("Enter arr elements: ");
-            arr[i] = int.Parse(Console.ReadLine());
+            currentSum = currentSum + myArray[i];
+            bestSequenceBuild.AppendFormat("{0}, ", myArray[i]);
+            if (currentSum > bestSum)
+            {
+                bestSum = currentSum;
+                bestSequnce = bestSequenceBuild.ToString();
+            }
+
+            if (currentSum < 0)
+            {
+                currentSum = 0;
+                bestSequenceBuild.Clear();
+            }
         }
 
-        Array.Sort(arr);
-        int sum = 0;
-        Console.WriteLine("Elements are: ");
-        for (int i = arr.Length - 1; i >= arr.Length - k; i--)
-        {
-            sum += arr[i];
-            Console.WriteLine(arr[i]+" ");
-        }
-        Console.WriteLine("Sum is {0}", sum);
-
+        Console.WriteLine("The best sequence is: \" {0} \" ", bestSequnce);
+        Console.WriteLine("The best sum is: {0} ", bestSum);
     }
 }
