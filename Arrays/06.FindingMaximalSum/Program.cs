@@ -1,38 +1,44 @@
-﻿/* Write a program that finds the sequence of maximal sum in given array. Example:
- * {2, 3, -6, -1, 2, -1, 6, 4, -8, 8}  {2, -1, 6, 4}
- * Can you do it with only one loop (with single scan through the elements of the array)?
- */
+﻿
 
 using System;
-using System.Text;
+using System.Collections.Generic;
 
-public class MaxSequence
+class MostFrequent
 {
-    public static void Main()
+    static void Main()
     {
-        int[] myArray = { 2, 3, -6, 36, -7, -1, -2, 4, -8, 8 };
-        int currentSum = 0;
-        int bestSum = 0;
-        StringBuilder bestSequenceBuild = new StringBuilder();
-        string bestSequnce = string.Empty;
+        Console.WriteLine("Enter size of raw");
+        int n = int.Parse(Console.ReadLine());
+        int[] myArray = new int[n];
+        for (int index = 0; index < myArray.Length; index++)
+        {
+            Console.WriteLine("Enter elements");
+            myArray[index] = int.Parse(Console.ReadLine());
+        }
+        Dictionary<int, int> mostFrequnet = new Dictionary<int, int>();
+        int bestElement = 0;
+        int bestFrequnecy = int.MinValue;
         for (int i = 0; i < myArray.Length; i++)
         {
-            currentSum = currentSum + myArray[i];
-            bestSequenceBuild.AppendFormat("{0}, ", myArray[i]);
-            if (currentSum > bestSum)
+           
+            int tempValue;
+            if (mostFrequnet.TryGetValue(myArray[i], out tempValue))
             {
-                bestSum = currentSum;
-                bestSequnce = bestSequenceBuild.ToString();
+                mostFrequnet[myArray[i]] = tempValue + 1;
             }
-
-            if (currentSum < 0)
+            else
             {
-                currentSum = 0;
-                bestSequenceBuild.Clear();
+                mostFrequnet.Add(myArray[i], 1);
             }
         }
-
-        Console.WriteLine("The best sequence is: \" {0} \" ", bestSequnce);
-        Console.WriteLine("The best sum is: {0} ", bestSum);
+        foreach (var item in mostFrequnet)
+        {
+            if (item.Value > bestFrequnecy)
+            {
+                bestElement = item.Key;
+                bestFrequnecy = item.Value;
+            }
+        }
+        Console.WriteLine("The number {0} shows {1} times", bestElement, bestFrequnecy);
     }
 }
