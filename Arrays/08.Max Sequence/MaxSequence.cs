@@ -1,43 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
 
-class TheMostFrequentnumber
+class SumSInArray
 {
     static void Main()
     {
-        Console.WriteLine("Enter size of raw");
-        int n = int.Parse(Console.ReadLine());
-        int[] numbers = new int[n];
-        for (int index = 0; index < numbers.Length; index++)
+        Console.Write("Array length:");
+        int length = int.Parse(Console.ReadLine());
+
+        Console.Write("S:");
+        int s = int.Parse(Console.ReadLine());
+        int[] arr = new int[length];
+
+        //array input
+        for (int i = 0; i < arr.Length; i++)
         {
-            Console.WriteLine("Enter elements");
-            numbers[index] = int.Parse(Console.ReadLine());
+            Console.Write("[{0}]=", i);
+            arr[i] = int.Parse(Console.ReadLine());
         }
-        int mostFrequent = 0;
-        int times = 0;
- 
-        IDictionary<int, int> numberFrequency = new Dictionary<int, int>();
- 
-        foreach (int number in numbers)
+
+        //the algorithm        
+        int sum = 0;
+
+        for (int i = 0; i < arr.Length; i++)
         {
-            if (!numberFrequency.ContainsKey(number))
+            for (int j = i; j < arr.Length; j++)
             {
-                numberFrequency.Add(number, 1);
+                sum += arr[j];
+                if (sum == s)
+                {
+                    Console.Write(s + "={");              //the output sequence
+                    for (int k = i; k <= j; k++)        //
+                    {                                   //
+                        Console.Write(arr[k] + ",");      //                  
+                    }                                   //
+                    Console.WriteLine("\b}");           //
+                }
             }
-            else
-            {
-                ++numberFrequency[number];
-            }
+            sum = 0;
         }
- 
-        foreach (KeyValuePair<int, int> pair in numberFrequency)
-        {
-            if (pair.Value > times)
-            {
-                times = pair.Value;
-                mostFrequent = pair.Key;
-            }
-        }
-        Console.WriteLine("{0} ({1} times)", mostFrequent, times);
     }
 }
