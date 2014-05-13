@@ -1,42 +1,20 @@
 ﻿using System;
 
-class SumSInArray
+class PrintLetterIndex
 {
     static void Main()
     {
-        Console.Write("Array length:");
-        int length = int.Parse(Console.ReadLine());
+        char[] arr = new char[26];
+        string word = (Console.ReadLine().ToLower());
 
-        Console.Write("S:");
-        int s = int.Parse(Console.ReadLine());
-        int[] arr = new int[length];
-
-        //array input
-        for (int i = 0; i < arr.Length; i++)
+        for (int i = 0; i < 26; i++)
         {
-            Console.Write("[{0}]=", i);
-            arr[i] = int.Parse(Console.ReadLine());
+            arr[i] = Convert.ToChar('a' + i);
         }
 
-        //the algorithm        
-        int sum = 0;
-
-        for (int i = 0; i < arr.Length; i++)
+        for (int J = 0; J < word.Length; J++)
         {
-            for (int j = i; j < arr.Length; j++)
-            {
-                sum += arr[j];
-                if (sum == s)
-                {
-                    Console.Write(s + "={");              //the output sequence
-                    for (int k = i; k <= j; k++)        //
-                    {                                   //
-                        Console.Write(arr[k] + ",");      //                  
-                    }                                   //
-                    Console.WriteLine("\b}");           //
-                }
-            }
-            sum = 0;
+            Console.WriteLine("{0} [{1}]", word[J], word[J] - 'a');
         }
     }
 }
